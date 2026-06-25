@@ -1,0 +1,122 @@
+* ============================================================
+* AL-MAWJA: THS4551 FDA Driving AD7380 SAR ADC
+* ============================================================
+* Single-ended to differential, MFB filter, unity gain
+* Supply: 3.3V single (VEE = GND)
+* VOCM = 1.25V (VREF/2)
+* Target bandwidth: ~1 MHz
+*
+* Place this file in the same folder as ths4551.lib
+* ============================================================
+
+.include ths4551.lib
+
+* ==================== POWER SUPPLIES ====================
+V_VCC VCC 0 3.3
+V_VOCM_SRC VOCM_SRC 0 1.25
+V_VMID VMID 0 1.25
+
+* Supply decoupling (for transient sim stability)
+C_VCC VCC 0 1u
+
+* ==================== SIGNAL SOURCE ====================
+* 500 kHz sine, 1Vpp, centered at 1.25V (swings 0.75V to 1.75V)
+* Change to PULSE for step-response test (see Sim Command 4)
+V_IN SIG_IN 0 SINE(1.25 0.5 500k)
+
+* ==================== INPUT NETWORK ====================
+* Signal enters IN- (inverting input) through Rg_signal
+Rg_sig SIG_IN NODE_INM 1k
+
+* VMID bias enters IN+ (non-inverting) through Rg_bias
+Rg_bias VMID NODE_INP 1k
+
+* Differential input capacitor (sets MFB filter Q)
+* Starting value: 220pF — adjust during tuning
+Cdiff NODE_INP NODE_INM 220p
+
+* ==================== THS4551 FDA ====================
+* Pin order: IN+ IN- OUT+ OUT- VOCM VCC VEE
+X_FDA NODE_INP NODE_INM OUTP OUTN VOCM_PIN VCC 0 THS4551
+
+* VOCM biasing: 1k series resistor + 1uF decoupling (per eval board)
+R_VOCM VOCM_SRC VOCM_PIN 1k
+C_VOCM VOCM_PIN 0 1u
+
+* ==================== FEEDBACK NETWORK ====================
+* Cross-coupled: OUT+ feeds back to IN-, OUT- feeds back to IN+
+* Rf and Cf in parallel for each feedback path
+
+* Top feedback path: OUT+ to IN-
+Rf_top OUTP NODE_INM 1k
+Cf_top OUTP NODE_INM 150p
+
+* Bottom feedback path: OUT- to IN+
+Rf_bot OUTN NODE_INP 1k
+Cf_bot OUTN NODE_INP 150p
+
+* ==================== OUTPUT RC NETWORK ====================
+* AD7380 datasheet recommendation (Figure 30, page 17)
+* 33 ohm series per leg
+R_out_p OUTP ADC_INP 33
+R_out_n OUTN ADC_INN 33
+
+* 68pF common-mode caps (each leg to GND)
+C_cm_p ADC_INP 0 68p
+C_cm_n ADC_INN 0 68p
+
+* 68pF differential cap (across ADC inputs)
+C_diff_adc ADC_INP ADC_INN 68p
+
+* ==================== AD7380 EQUIVALENT INPUT ====================
+* From AD7380-4 datasheet Figure 28:
+*   3pF pin capacitance per leg
+*   200 ohm switch resistance per leg
+*   15pF sampling capacitor per leg
+* This models the ADC during acquisition phase (switches closed)
+
+C_pin_p ADC_INP 0 3p
+C_pin_n ADC_INN 0 3p
+
+R_sw_p ADC_INP SAMP_P 200
+R_sw_n ADC_INN SAMP_N 200
+
+C_samp_p SAMP_P 0 15p
+C_samp_n SAMP_N 0 15p
+
+* ==================== SIMULATION COMMANDS ====================
+* Uncomment ONE block at a time, comment out the others.
+* After each sim, check the corresponding measurement.
+
+* --- SIM 1: DC Operating Point ---
+* Verify OUTP and OUTN both sit at ~1.25V with no AC input
+* To use: also change V_IN to DC 1.25 (remove SINE)
+.op
+
+* --- SIM 2: AC Frequency Sweep ---
+* Verify flat gain to ~1 MHz, then rolloff
+* To use: change V_IN to "AC 1" and uncomment below
+*.ac dec 200 100 100Meg
+
+* --- SIM 3: Transient - Sine Wave ---
+* Verify no clipping, clean differential output
+* Look at V(OUTP), V(OUTN), V(OUTP)-V(OUTN)
+*.tran 0 20u 0 10n
+
+* --- SIM 4: Transient - Step Response ---
+* Check settling time to 16-bit accuracy
+* To use: change V_IN to PULSE(0.75 1.75 1u 10n 10n 5u 10u)
+*.tran 0 4u 0 1n
+
+* ============================================================
+* NOTES:
+* - All component values are starting points from ADS8900B EVM
+*   scaled for ~1 MHz cutoff
+* - Cf (150pF): increase to lower cutoff, decrease to raise it
+* - Cdiff (220pF): affects filter Q and peaking
+* - If sim shows ringing, increase Cf or Cdiff
+* - If bandwidth too narrow, decrease Cf
+* - Output RC (33/68/68) is fixed per AD7380 datasheet
+* ============================================================
+
+.end

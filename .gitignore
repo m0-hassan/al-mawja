@@ -1,0 +1,28 @@
+# OS / editor cruft
+.DS_Store
+*~
+
+# KiCad transient / per-user state
+*.kicad_prl
+*.lck
+~*.lck
+fp-info-cache
+
+# KiCad backups (auto-generated)
+*-backups/
+*.bak
+*-bak
+
+# Manual project backups
+.ghost-fix-backup/
+.pre-0402-backup/
+.pre-array-backup/
+.pre-default-backup/
+.pre-fp-relink-backup/
+.pre-vendor-backup/
+AL-MAWJA-backups/
+AL-MAWJA.kicad_pro.pre-netclass-bak
+library/al-mawja-library.kicad_sym.pre-default-bak
+
+# Redundant duplicate of datasheets folder
+Al-Mawja Datasheets copy/

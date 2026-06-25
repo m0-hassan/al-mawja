@@ -1,0 +1,308 @@
+
+**** 06/10/21 15:42:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-TransientAnalysis"  [ C:\Users\a0232073\Desktop\GWL_Models\THS4551\AppendScript\THS4551-PSpiceFiles\SCHEMATI
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "TransientAnalysis.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+.LIB "../../../THS4551.lib" 
+* From [PSPICE NETLIST] section of C:\SPB_Data\cdssetup\OrCAD_PSpiceTIPSpice_Install\17.4.0\PSpice.ini file:
+.lib "nom_pspti.lib" 
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 100ns 0 0.1e-9 
+.OPTIONS ADVCONV
+.OPTIONS FILEMODELSEARCH
+.PROBE64 N([OUT-])
+.PROBE64 N([OUT+])
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source THS4551
+X_U1         N03533 N03613 OUT+ OUT- VOCM VCC VEE THS4551
+R_Rf2         N03613 OUT+  1e3 TC=0,0 
+R_Rg1         N03523 N03533  1e3 TC=0,0 
+V_V1         VCC 0 2.5Vdc
+R_Rg2         0 N03613  1e3 TC=0,0 
+R_Rf1         N03533 OUT-  1e3 TC=0,0 
+V_V2         VEE 0 -2.5Vdc
+V_V3         N03523 0  AC 1
++SIN 0 0.2 100e6 0 0 0
+R_Rl         OUT+ OUT-  1e3 TC=0,0 
+V_V4         VOCM 0 0Vdc
+
+**** RESUMING TransientAnalysis.cir ****
+.END
+
+**** 06/10/21 15:42:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-TransientAnalysis"  [ C:\Users\a0232073\Desktop\GWL_Models\THS4551\AppendScript\THS4551-PSpiceFiles\SCHEMATI
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.X_I_NN.DVNF 
+          IS  100.000000E-18 
+          KF   31.622780E-12 
+
+
+               X_U1.X_I_NP.DVNF                X_U1.X_U1.DVN   X_U1.X_U2.DVN   
+          IS  100.000000E-18                  100.000000E-18  100.000000E-18 
+          KF   31.622780E-12                   31.622780E-12   31.622780E-12 
+
+
+**** 06/10/21 15:42:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-TransientAnalysis"  [ C:\Users\a0232073\Desktop\GWL_Models\THS4551\AppendScript\THS4551-PSpiceFiles\SCHEMATI
+
+
+ ****     Resistor MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.R_NOISE    X_U1.R_NOISELESS 
+  T_Measured   27              27            
+   T_Current   27            -273.15         
+           R    1               1            
+
+
+**** 06/10/21 15:42:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-TransientAnalysis"  [ C:\Users\a0232073\Desktop\GWL_Models\THS4551\AppendScript\THS4551-PSpiceFiles\SCHEMATI
+
+
+ ****     Voltage Controlled Switch MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.X_ESD_OUT.ESD_SW 
+         RON   50            
+        ROFF    1.000000E+12 
+         VON     .5          
+        VOFF     .45         
+
+
+               X_U1.X_ESD_OUT1.ESD_SW          X_U1.X_S10._S10 X_U1.X_S11._S11 
+         RON   50                               1               1            
+        ROFF    1.000000E+12                    1.000000E+06    1.000000E+06 
+         VON     .5                              .1              .1          
+        VOFF     .45                            -.1             -.1          
+
+
+               X_U1.X_S12._S12 X_U1.X_S13._S13 X_U1.X_S14._S14 X_U1.X_S9._S9   
+         RON    1               1               1               1            
+        ROFF    1.000000E+06    2.000000E+03    2.000000E+03    1.000000E+06 
+         VON     .1             4               4                .1          
+        VOFF    -.1             3.5             3.5             -.1          
+
+
+**** 06/10/21 15:42:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-TransientAnalysis"  [ C:\Users\a0232073\Desktop\GWL_Models\THS4551\AppendScript\THS4551-PSpiceFiles\SCHEMATI
+
+
+ ****     Current Controlled Switch MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.X_W1._W1   X_U1.X_W2._W2   
+         RON    1               1            
+        ROFF   10.000000E+06   10.000000E+06 
+         ION    7.000000E-06    7.000000E-06 
+        IOFF    5.000000E-06    5.000000E-06 
+
+
+**** 06/10/21 15:42:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-TransientAnalysis"  [ C:\Users\a0232073\Desktop\GWL_Models\THS4551\AppendScript\THS4551-PSpiceFiles\SCHEMATI
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(  VCC)    2.5000  (  VEE)   -2.5000  ( OUT+) 223.8E-06  ( OUT-) 176.6E-06      
+
+( VOCM)    0.0000  (N03523)    0.0000 (N03533) 588.4E-06 (N03613) 606.8E-06     
+
+(X_U1.INN) 606.8E-06                  (X_U1.INP) 606.8E-06                      
+
+(X_U1.MID) 1.300E-09                  (X_U1.ZO+) 223.8E-06                      
+
+(X_U1.ESDN) 606.8E-06                 (X_U1.ESDP) 588.4E-06                     
+
+(X_U1.VCLP) 117.9E-06                 (X_U1.AOL_3) 117.9E-06                    
+
+(X_U1.CLAMP) 221.4E-06                (X_U1.VCC_B)    2.5000                    
+
+(X_U1.VEE_B)   -2.5000                (X_U1.VIMON)-335.9E-06                    
+
+(X_U1.AOLNET) 68.38E-09               (X_U1.AOLZO+)     .0303                   
+
+(X_U1.AOLZO-)    -.0299               (X_U1.N06458) 588.4E-06                   
+
+(X_U1.N10561) 622.6E-06               (X_U1.N10570) 622.6E-06                   
+
+(X_U1.N11984) 622.6E-06               (X_U1.N25816) 606.8E-06                   
+
+(X_U1.N28602)   -2.7000               (X_U1.N30136)    1.4000                   
+
+(X_U1.N30913) 606.8E-06               (X_U1.N79669) 221.4E-06                   
+
+(X_U1.N91498) 117.9E-06               (X_U1.VOUT_S) 47.16E-06                   
+
+(X_U1.X_U1.3)    0.0000               (X_U1.X_U1.4)    0.0000                   
+
+(X_U1.X_U1.5)    0.0000               (X_U1.X_U1.6)    0.0000                   
+
+(X_U1.X_U1.7)     .8338               (X_U1.X_U1.8)     .8338                   
+
+(X_U1.X_U2.3)    0.0000               (X_U1.X_U2.4)    0.0000                   
+
+(X_U1.X_U2.5)    0.0000               (X_U1.X_U2.6)    0.0000                   
+
+(X_U1.X_U2.7)     .8338               (X_U1.X_U2.8)     .8338                   
+
+(X_U1.AOLVOCM)-196.8E-06              (X_U1.N110431)-335.9E-06                  
+
+(X_U1.N112292) 47.16E-06              (X_U1.N317950) 1.300E-09                  
+
+(X_U1.N406634)    2.5000              (X_U1.N406794)   -2.5000                  
+
+(X_U1.N694641) 117.9E-06              (X_U1.N703229) 270.6E-12                  
+
+(X_U1.N706294) 7.906E-06              (X_U1.N709248)-7.901E-06                  
+
+(X_U1.N749288) 622.6E-06              (X_U1.N757831) 118.1E-06                  
+
+(X_U1.N781369)-5.882E-06              (X_U1.N782670)    -.0198                  
+
+(X_U1.N783783)     .0878              (X_U1.N798514)     .0495                  
+
+(X_U1.N798524) 420.9E-06              (X_U1.N798534) 420.9E-06                  
+
+(X_U1.N798544) 420.9E-06              (X_U1.N798590)     .0421                  
+
+(X_U1.N798598) 420.8E-06              (X_U1.N798870) 420.9E-06                  
+
+(X_U1.N799654) 47.16E-06              (X_U1.VCC_CLP)    2.4000                  
+
+(X_U1.VEE_CLP)   -2.4100              (X_U1.VOUT_CM) 200.2E-06                  
+
+(X_U1.N1022298) 420.9E-06             (X_U1.N1022308) 420.9E-06                 
+
+(X_U1.N1022352) 420.9E-06             (X_U1.N1063588) 221.3E-06                 
+
+(X_U1.N1116229)    2.4000             (X_U1.N1116251)    2.4000                 
+
+(X_U1.N1117217)   -2.4100             (X_U1.N1117233)   -2.4100                 
+
+(X_U1.N1151603)    1.4000             (X_U1.N1151717) 606.8E-06                 
+
+(X_U1.N1151745) 606.8E-06             (X_U1.N1151839)   -2.7000                 
+
+(X_U1.N1174153) 606.8E-06             (X_U1.N1174757) 588.4E-06                 
+
+(X_U1.N1220118)    4.8100             (X_U1.N1220292) 1.300E-09                 
+
+(X_U1.N1220320) 1.300E-09             (X_U1.N1220418) 1.300E-09                 
+
+(X_U1.N1220432) 1.300E-09             (X_U1.N1220502)   -4.8100                 
+
+(X_U1.N1242451) 200.0E-06             (X_U1.N1252473)    0.0000                 
+
+(X_U1.X_I_NN.3)    0.0000             (X_U1.X_I_NN.4)    0.0000                 
+
+(X_U1.X_I_NN.5)    0.0000             (X_U1.X_I_NN.6)    0.0000                 
+
+(X_U1.X_I_NN.7)     .8338             (X_U1.X_I_NN.8)     .8338                 
+
+(X_U1.X_I_NP.3)    0.0000             (X_U1.X_I_NP.4)    0.0000                 
+
+(X_U1.X_I_NP.5)    0.0000             (X_U1.X_I_NP.6)    0.0000                 
+
+(X_U1.X_I_NP.7)     .8338             (X_U1.X_I_NP.8)     .8338                 
+
+(X_U1.X_VOS_VS_VCM.1) 622.6E-06       
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1        -1.378E-03
+    V_V2         1.379E-03
+    V_V3         5.884E-07
+    V_V4         0.000E+00
+    X_U1.V_CMVOS   0.000E+00
+    X_U1.V_VCM_MAX  -1.400E-09
+    X_U1.V_VCM_MAX1  -1.400E-09
+    X_U1.V_VCM_MIN   2.700E-09
+    X_U1.V_VCM_MIN1   2.700E-09
+    X_U1.X_H3.VH_H3   3.359E-07
+    X_U1.X_VOS_VS_VCM.V1   6.540E-17
+    X_U1.X_W1.VW_W1  -1.839E-10
+    X_U1.X_W2.VW_W2   1.839E-10
+
+    TOTAL POWER DISSIPATION   6.89E-03  WATTS
+
+
+
+          JOB CONCLUDED
+
+**** 06/10/21 15:42:05 ******* PSpice 17.4.0 (Nov 2018) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-TransientAnalysis"  [ C:\Users\a0232073\Desktop\GWL_Models\THS4551\AppendScript\THS4551-PSpiceFiles\SCHEMATI
+
+
+ ****     JOB STATISTICS SUMMARY
+
+
+******************************************************************************
+
+
+
+  License check-out time            =       44.00
+  Total job time (using Solver 1)   =        1.59
+
